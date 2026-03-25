@@ -1,0 +1,81 @@
+body{display: flex;
+    justify-content: center;
+  
+}
+#containerContacto {
+  padding: 0;
+  margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+ border: 1px solid black;
+
+}
+
+#divNombre{
+    background-color: beige;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+}
+#divDatos{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+.img-fluid{
+    margin: 30px;
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    border: 3px solid rgb(104, 102, 102);
+}
+#correo{
+    font-size: small;
+}
+.iconos{
+    width: 60px;
+  
+    display: flex;
+    justify-content: space-around;
+}
+#formulario{
+   background-color: rgb(233, 240, 237);
+   padding: 8px;
+   border-radius: 4px;
+border: 2px solid rgb(48, 177, 54)
+}
+
+#modalFondo{
+   background: #f3f4f6; 
+}
+#modal{
+    background: #2e3c4e;
+color: #f9fafb;
+}
+
+#Navbar{
+margin-top:  90px;
+padding: 0;
+  
+    display: flex;
+    justify-content: end;
+    width: 540px;
+}
+
+#bottonNabvar{
+    background-color: rgb(151, 115, 88);
+    width: 130px;
+height: 40px;
+    padding: 0;
+}
+
+
+#botones{
+     background-color: rgb(151, 115, 88);
+}

@@ -1,15 +1,15 @@
 import {React,useState} from "react";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 
-function Formulario() {
+function AddContact() {
 
-
+const navigate = useNavigate();
 const[nombre, setNombre]=useState("")
 const[telefono, setTelefono]=useState("")
 const[direccion, setDireccion]=useState("")
 const[correo, setCorreo]=useState("")
 
-  const crearUsuario = (nombre, telefono, correo, direccion) => {
+  const crearUsuario = () => {
     fetch("https://playground.4geeks.com/contact/agendas/alexis12/contacts", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -20,34 +20,25 @@ const[correo, setCorreo]=useState("")
         address: direccion
       })
     })
-      .then((res) => res.json())
       .then((data) => {
         console.log("Creado:", data);
+        navigate("/")
       })
       .catch((error) => console.log(error));
   };
 
 
-const handleClick = () => {
-     console.log("boton funcionando");
-     crearUsuario(nombre, telefono, correo,direccion);
-	    setNombre("");
-    setTelefono("");
-    setCorreo("");
-    setDireccion("");
-  
-}
 
 
 
 
 
   return (
-    <div>
+    <div id="formulario">
     <form className="container mt-4" style={{ width: 500 }}>
         <div className="mb-3">
         <label  className="form-label">Nombre completo</label>
-        <input type="Text" className="form-control" id="nombreCompleto" onChange={(e) => setNombre(e.target.value)} value={nombre}/>
+        <input type="text" className="form-control" id="nombreCompleto" onChange={(e) => setNombre(e.target.value)} value={nombre}/>
       </div>
       <div className="mb-3">
         <label htmlFor="email1" className="form-label">Email</label>
@@ -67,9 +58,9 @@ const handleClick = () => {
         <label className="form-label">Direccion</label>
         <input type="text" className="form-control" id="password2"  onChange={(e)=>setDireccion(e.target.value)} value={direccion}/>
       </div>
-   <button type="button" className="btn btn-primary" onClick={handleClick}>Submit</button>
+   <button type="button" id="botones" className="btn btn-primary" onClick={crearUsuario}>Guardar</button>
        <Link to="/">	
-	<p className="card-text"><small className="text-muted">volver a contactos</small></p>
+	<p className="card-text"><small className="text-muted">Volver a contactos</small></p>
       </Link>
     </form>
   
@@ -77,4 +68,4 @@ const handleClick = () => {
   );
 }
 
-export default Formulario;
+export default AddContact;
