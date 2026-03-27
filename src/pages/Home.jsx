@@ -10,34 +10,41 @@ export const Home = () => {
   const [datos, setDatos] = useState([]);
   const [contactoEditar, setContactoEditar] = useState(null)
 
-  const crearAgenda = () => {
-    fetch("https://playground.4geeks.com/contact/agendas/alexis12", {
-      method: "POST"
-    })
-      .then((res) => res.json())
-      .then((data) => 
-        console.log(data))
-      .catch((error) => console.log(error));
-  };
+  async function crearAgenda() {
+    try {
+      let response = await fetch("https://playground.4geeks.com/contact/agendas/alexis18", {
+        method: "POST"
+      })
+      console.log(response);
+      let data = await response.json()
+      console.log(data)
+      
+      return console.log("informacion recibida", data)
+    }
+ 
+    catch (error) {
+      return console.log(error)
+    }
 
-  const informacion = () => {
-    fetch("https://playground.4geeks.com/contact/agendas/alexis12/contacts", {
+  }
+
+async function informacion  () {
+  try{ let response= await fetch("https://playground.4geeks.com/contact/agendas/alexis18/contacts", {
       method: "GET"
     })
-      .then((res) => {
-        if (res.status === 404) {
-          return crearAgenda()
-        } else {
-          return res;
-        }
-      })
-      .then((res) => res.json())
-      .then((data) => setDatos(data.contacts))
-      .catch((error) => console.log(error));
-  };
+      let data = await response.json ()
+        if (!response.ok) {
+        crearAgenda()}
+        return setDatos(data.contacts) }
+
+      catch(error){ return console.log(error)
+
+      };
+      }
+  
 
   const eliminar = (id) => {
-    fetch(`https://playground.4geeks.com/contact/agendas/alexis12/contacts/${id}`, {
+    fetch(`https://playground.4geeks.com/contact/agendas/alexis18/contacts/${id}`, {
       method: "DELETE",
     })
       .then(() => informacion())
@@ -49,11 +56,11 @@ export const Home = () => {
   }, []);
 
   return (
-   
-  <div className="text-center mt-5">
-    {contactoEditar ? (<Editar contacto={contactoEditar} cerrarEdicion={() => setContactoEditar(null)}  cargarContactos={informacion}/>) : ( <Contact datos={datos} eliminar={eliminar} onEditar={setContactoEditar}/>
-    )}
- 
+
+    <div className="text-center mt-5">
+      {contactoEditar ? (<Editar contacto={contactoEditar} cerrarEdicion={() => setContactoEditar(null)} cargarContactos={informacion} />) : (<Contact datos={datos} eliminar={eliminar} onEditar={setContactoEditar} />
+      )}
+
     </div>
   );
 };

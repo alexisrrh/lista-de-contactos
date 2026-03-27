@@ -15,8 +15,9 @@ function Editar({ contacto, cerrarEdicion, cargarContactos }) {
     }
   }, [contacto]);
 
-  function guardarCambios() {
-    fetch(`https://playground.4geeks.com/contact/agendas/alexis12/contacts/${contacto.id}`, {
+  async function guardarCambios() {
+    try{ 
+    let response = await fetch(`https://playground.4geeks.com/contact/agendas/alexis18/contacts/${contacto.id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -24,25 +25,29 @@ function Editar({ contacto, cerrarEdicion, cargarContactos }) {
         phone: telefono,
         email: correo,
         address: direccion
-      })
-    })
-      .then((response) => {
+      }) })
+
+      let data =  await response.json()
+      console.log(data.status);
         if (!response.ok) {
           throw new Error("no se actualizo el contacto");
         }
-        return response.json();
-      })
-      .then((data) => {
-        console.log(data);
-        alert("contacto actualizado");
-        cargarContactos();
-        cerrarEdicion();
-      })
-      .catch((error) => console.log(error));
+        else {
+        
+        alert("contacto actualizado")
+        cargarContactos()
+        cerrarEdicion()
+        }
+      }
+    
+      catch(error) {
+        console.log(error)
+
+      }
   }
 
   return (
- <>
+ 
   <div id="modalFondo" className="modal fade show d-block" tabIndex="-1">
     <div className="modal-dialog">
       <div  id="modal"  className="modal-content">
@@ -93,9 +98,9 @@ function Editar({ contacto, cerrarEdicion, cargarContactos }) {
     </div>
   </div>
 
-  {/* fondo oscuro */}
-  <div className="modal-backdrop fade show"></div>
-</>
+
+  
+
   );
 }
 
